@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_restful import Api, Resource, reqparse, abort
 from flask_pymongo import pymongo
 from flask_cors import CORS
-import db_config as database
+import app.db_config as database
 
 app =Flask(__name__)
 api = Api(app)

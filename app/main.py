@@ -75,7 +75,10 @@ class Student(Resource):
         pass
     
     def delete(self):
-        pass
+        student=self.abort_if_not_exist(id)
+        database.db.students.delete_one({'id':id})
+        del student['_id']
+        return jsonify({'deleted':student})
 
     def abort_if_id_exist(self,id):
         if database.db.students.find_one({'id':id}):

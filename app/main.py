@@ -74,7 +74,7 @@ class Student(Resource):
     def patch(self):
         pass
     
-    def delete(self):
+    def delete(self,id):
         student=self.abort_if_not_exist(id)
         database.db.students.delete_one({'id':id})
         del student['_id']

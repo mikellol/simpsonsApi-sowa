@@ -9,13 +9,21 @@ api = Api(app)
 CORS(app)
 
 post_students_args= reqparse.RequestParser()
-
 post_students_args.add_argument("id",type=int,help="ERROR id value needs to be an integer", required=True)
 post_students_args.add_argument("first_name",type=str,help="ERROR first_name is required", required=True)
 post_students_args.add_argument("last_name",type=str,help="ERROR last_name is required", required=True)
 post_students_args.add_argument("image",type=str,help="ERROR you need to add the image url", required=True)
 post_students_args.add_argument("group",type=str, required=False)
 post_students_args.add_argument("career",type=str, required=False)
+
+
+patch_students_args=reqparse.RequestParser()
+patch_students_args.add_argument("id",type=int,help="ERROR id value needs to be an integer", required=False)
+patch_students_args.add_argument("first_name",type=str,help="ERROR first_name is required", required=False)
+patch_students_args.add_argument("last_name",type=str,help="ERROR last_name is required", required=False)
+patch_students_args.add_argument("image",type=str,help="ERROR you need to add the image url", required=False)
+patch_students_args.add_argument("group",type=str, required=False)
+patch_students_args.add_argument("career",type=str, required=False)
 
 class Test(Resource):
     def get(self):
@@ -71,8 +79,24 @@ class Student(Resource):
         )
         return jsonify(args)
 
-    def patch(self):
-        pass
+    def patch(self,id):
+        student= self.abort_if_not_exist(id)
+        args= patch_students_args.parse_args()
+        
+        database.db.students.update_one(
+            {'id':id},
+            {'$set':{
+                'id': args['id'] or student['id'],
+                'first_name': args['first_name'] or student['first_name'],
+                'last_name': args['last_name'] or student['last_name'],
+                'image': args['image'] or student['image'],
+                'group': args['group'] or student['group'],
+                'career': args['career'] or student['career'],
+            }}
+        )
+        student= self.abort_if_not_exist(id)
+        del student['_id']
+        return jsonify(student)
     
     def delete(self,id):
         student=self.abort_if_not_exist(id)

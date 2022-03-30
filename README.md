@@ -1,2 +1,2 @@
 # simpsonsApi-sowa
-Api with information about some characters from The Simpsons. 
+Program to create an Api with information about some characters from The Simpsons. 

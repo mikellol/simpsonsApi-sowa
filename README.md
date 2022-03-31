@@ -1,5 +1,5 @@
 <h2>simpsonsApi-sowa</h2>
-<p>Program to create an Api with information about some characters from The Simpsons, like the name and gender, base in a database created by our own in which we have saved all the information mentioned before.</p>
+<p>Program to create an Api with information about some characters from The Simpsons, the name and gender, base in a database created by our own in which we have saved all the information mentioned before.</p>
 <h3>Contributors in the proyect:</h3>
 <br>
 *MIGUEL ANGEL VELARDE MUÑOZ. 
